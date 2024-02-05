@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de tareas</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+    <div class="nav">
+        <div class="tittle">
+            <p>Agenda de tareas</p>
+        </div>
+        <div class="icons">
+            <a href="https://github.com/Naujel" target="_blank"><img src="/static/github-icon.png" alt="Github Icon"></a>
+            <a href="https://www.linkedin.com/in/juan-madera-loayza/" target="_blank"><img src="/static/linkedin-icon.png" alt="Linkedin Icon"></a>
+        </div>
+    </div>
+    <section class="task_management">
+        <div class="new_task_container">
+            {% with flash_update = get_flashed_messages(category_filter=["updated"])%}
+                {% if flash_update %}
+                    {% for message in flash_update %}
+                    <div class="flash_container">
+                        <h3 class="success">Tarea "{{ message }}" actualizada exitosamente</h3>
+                        <div class="close_success">
+                            <i id="close_success" class="fa-solid fa-xmark"></i>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {% with flash_add = get_flashed_messages(category_filter=["added"])%}
+                {% if flash_add %}
+                    {% for message in flash_add %}
+                    <div class="flash_container">
+                        <h3 class="success">Tarea "{{ message }}" añadida exitosamente</h3>
+                        <div class="close_success">
+                            <i id="close_success" class="fa-solid fa-xmark"></i>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {% with flash_delete= get_flashed_messages(category_filter=["deleted"])%}
+                {% if flash_delete %}
+                    {% for message in flash_delete %}
+                    <div class="flash_container" style="background-color: rgb(205, 82, 73);">
+                        <h3 class="success">Tarea "{{ message }}" ha sido eliminada</h3>
+                        <div class="close_success">
+                            <i id="close_success" class="fa-solid fa-xmark"></i>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action="/tasks/new" method="POST">
+                <h2>Nueva tarea</h2>
+                <div class="name_container">
+                    <label for="task_name">Nombre de tarea:</label>
+                    <input type="text" name="task_name" placeholder="Escribe el nombre de tarea">
+                </div>
+                <div class="description-container">
+                    <label for="description">Descripción de tarea:</label>
+                    <textarea name="description" placeholder="Escribe la descripción" cols="30" rows="10"></textarea>
+                </div>
+                <button class="add_button" type="submit">Añadir</button>
+            </form>
+        </div>
+
+        <div class="user_tasks">
+            <h2>Tareas</h2>
+            <div class="tasks">
+                {%for task in tasks%}
+                <div class="task">
+                    <div class="task_info">
+                        <h4>{{ task.task_name }}</h5>
+                        <p>Agregado en: {{ task.date }}</p>
+                        <p>{{ task.description }}</p>
+                    </div>
+                    <div class="task_buttons">
+                        <a href="/tasks/delete/{{task.id}}" class="delete_button">Eliminar</a>
+                        <a href="" class="update_button" data-task-id="{{ task.id }}">Editar</a>
+                    </div>
+                    <div class="modal_container" data-modal-id="{{ task.id }}">
+                        <form class="update_form" action="/tasks/update/{{task.id}}" , method="POST">
+                            <div class="close_icon">
+                                <i id="close_icon" class="fa-solid fa-xmark" data-task-id="{{ task.id }}"></i>
+                            </div>
+                            <div class="update_tittle">
+                                <h2>Actualizar tarea</h4>
+                            </div>
+                            <div class="task_label_container">
+                                <label class="task_label" for="task_name">Nombre de tarea</label>
+                            </div>
+                            <div class="task_input_container">
+                                <input type="text" name="task_name"  placeholder="Escribe el nombre de tarea" value="{{task.task_name}}">
+                            </div>
+
+                            <div class="description_label_container">
+                                <label class="description_label" for="description">Descripcion</label>
+                            </div>
+                            <div class="description_input_container">
+                                <textarea name="description" placeholder="Escribe la descripción" cols="30" rows="10">{{task.description}}</textarea>
+                            </div>
+                            <button class="save_button" type="submit">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            {%endfor%}
+            </div>
+        </div>
+    </section>
+</body>
+
+<script>
+    document.addEventListener("click", e => {
+        if (e.target.matches('.update_button')){
+            e.preventDefault()
+            const taskId = e.target.getAttribute('data-task-id')
+            const modal = document.querySelector(`.modal_container[data-modal-id="${taskId}"]`)
+            modal.classList.add("modal-show")
+        }
+
+        if (e.target.matches('#close_icon')){
+            const taskId = e.target.getAttribute('data-task-id')
+            const modal = document.querySelector(`.modal_container[data-modal-id="${taskId}"]`)
+            modal.classList.remove("modal-show")
+        }
+
+        if (e.target.matches('#close_success')){
+            const flash_container = document.querySelector('.flash_container')
+            flash_container.classList.add("flash_close")
+        }
+
+    })
+</script>
+    
+</html>

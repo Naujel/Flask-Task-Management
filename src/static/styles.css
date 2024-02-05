@@ -1,0 +1,348 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.nav {
+    background-color: rgb(255, 255, 255);
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+    .icons {
+        margin-right: 10px;
+        width: 10%;
+        min-width: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+        .icons img {
+            width: 80px;
+            padding: 20px;
+            text-align: center;
+        }
+    
+    .tittle {
+        margin-left: 10px;
+        width: 20%;
+        min-width: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+        .tittle p {
+            font-size: 30px;
+            text-align: center;
+        }
+
+.modal_container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(0, 0, 0, 0.2);
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+    --transform: translateY(-100vh);
+    --transition: transform .5s ease;
+}
+
+    .update_tittle{
+        margin-top: 50px;
+        margin-bottom: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .update_form {
+        margin: auto;
+        max-width: 600px;
+        width: 90%;
+        max-height: 100%;
+        background-color: white;
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: var(--transition);
+        transform: var(--transform);
+    }
+        .close_icon {
+            display: flex;
+            justify-content: end;
+            width: 80%;
+        }
+            .close_icon i {
+                color: #0A3871;
+                font-size: 35px;
+                cursor: pointer;
+            }
+
+        .task_label_container, .description_label_container {
+            font-size: 20px;
+        }
+
+        .task_input_container, .description_input_container {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+        }
+            .task_input_container input{
+                width: 80%;
+                margin: 10px;
+                padding: 10px;
+                outline: none;
+            }
+
+        .description_input_container textarea {
+            padding: 10px;
+            margin: 10px;
+            width: 80%;
+            resize: none;
+            scrollbar-width: thin;
+            outline: none;
+        }
+    
+    .modal_container button {
+        margin: 10px;
+        font-size: 15px;
+        display: inline-block;
+        width: 120px;
+        height: 40px;
+    }
+
+.modal-show {
+    opacity: 1;
+    pointer-events: unset;
+    --transform: translateY(0);
+}
+
+.task_management {
+    background-color: rgb(235, 235, 235);
+    height: 90vh;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 30px;
+}
+
+    .task_management .new_task_container {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .flash_container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #69d472;
+            height: 8%;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .flash_close {
+            opacity: 0;
+            display: none;
+        }
+
+            .task_management .new_task_container .success {
+                color: white;
+                font-weight: normal ;
+            }
+
+            .task_management .new_task_container .close_success {
+                color: white;
+                font-size: 25px;
+                cursor: pointer;
+            }
+    .task_management form {
+        background-color: white;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 500px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px;
+    }
+        .task_management form h2 {
+            font-size: 32px;
+            width: 80%;
+            text-align: center;
+            height: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    
+
+        .name_container {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            margin-bottom: 20px
+        }
+            .name_container label {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            .name_container input {
+                padding: 10px;
+                outline: none;
+            }
+
+        .description-container {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            margin-bottom: 20px
+        }
+
+            .description-container label {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            .description-container textarea {
+                padding: 10px;
+                resize: none;
+                outline: none;
+            }
+
+        .task_management form button {
+            padding: 10px;
+            font-size: 15px;
+            cursor: pointer;
+            outline: none;
+            border: none;
+            color: white;
+            border-radius: 10px;
+            background-color: #0A3871;
+            transition: all 250ms ease;
+            width: 120px;
+            height: 40px;
+        }
+
+    .user_tasks{
+        background-color: white;
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 60%;
+        max-width: 800px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px;
+        padding: 20px;
+    }
+
+        .user_tasks h2 {
+            font-size: 32px;
+            width: 80%;
+            text-align: center;
+            height: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tasks {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            height: 80%;
+            overflow-y: scroll;
+            scrollbar-width: thin;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+            .tasks .task {
+                padding: 10px;
+                width: 100%;
+                display: flex;
+                border: solid 1px black;
+                margin-bottom: 10px;
+            }
+
+                .tasks .task .task_info {
+                    width: 80%;
+                    padding: 10px;
+                    height: auto;
+                    overflow-wrap: break-word;
+                }
+
+                    .task_info h4, p {
+                        margin-bottom: 5px;
+                        width: 100%;
+                    }
+
+                .tasks .task .task_buttons {
+                    width: 20%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                    .task_buttons .delete_button {
+                        width: 100px;
+                        height: 40px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border: solid 1px black;
+                        border-radius: 15px;
+                        margin-bottom: 10px;
+                        background-color: rgb(205, 82, 73);
+                        border: none;
+                        color: white;
+                        transition: all 250ms ease;
+                    }
+
+                    .task_buttons .update_button {
+                        width: 100px;
+                        height: 40px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border: solid 1px black;
+                        border-radius: 15px;
+                        background-color: #0A3871;
+                        border: none;
+                        color: white;
+                        transition: all 250ms ease;
+                    }
+
+.update_button:hover, .add_button:hover {
+    background-color: #082549;
+    transform: scale(1.05)
+}
+
+.delete_button:hover {
+    background-color: rgb(158, 48, 40);
+    transform: scale(1.05)
+}
+    
+    
